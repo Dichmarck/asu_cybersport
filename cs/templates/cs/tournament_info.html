@@ -1,0 +1,15 @@
+{% extends 'cs/base.html' %}
+
+{% block title %}
+<title>{{ tour.title }}</title>
+{% endblock title %}
+
+{% block content %}
+    <h1>{{ tour.title }} - подробная информация</h1>
+    <h2> Призовой фонд {{ tour.prize_fund }} </h2>
+    <h3> Начало {{ tour.time_start }}</h3>
+    {% if tour.rules %}
+    <h3> <a href="{{ tour.rules.url }}"> Правила </a></h3>
+    {% endif %}
+    <img src="{{ tour.photo.url }}" width="600px" height="600px">
+{% endblock content%}

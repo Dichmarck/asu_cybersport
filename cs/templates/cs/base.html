@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+
+    <link type="text/css" href="{% static 'cs/css/styles.css' %}" rel="stylesheet" />
+
+    {% block title %}
+    <title>{{ title }}</title>
+    {% endblock title %}
+</head>
+
+<body bgcolor="white">
+<div class ="page_without_footer">
+
+<div class="header"> <h1 align="center"><a href="{% url 'main' %}"> {{ site_name }} </a></h1> </div>
+
+{% block menu %}
+<nav class="navbar">
+<ul class="menu">
+{% for m in menu %}
+    <li><a href="{% url m.url_name %}">{{ m.title }}</a></li>
+{% endfor %}
+</ul>
+<ul class="register">
+{% if user.is_authenticated %}
+    <li class="register"><a href = "{{ user.get_absolute_url }}"> {{ user }} </a></li>
+    <li class="register"><a href = "{% url 'logout' %}"> Выход </a></li>
+{% else %}
+    {% for l in login_menu %}
+        <li class="register"><a href = "{% url l.url_name %}">{{ l.title }}</a></li>
+    {% endfor %}
+{% endif %}
+</ul>
+</nav>
+{% endblock menu %}
+
+
+
+<div class="content">
+{% block content %}
+<h2>{{ title }}</h2>
+
+
+
+{% endblock content %}
+</div>
+
+
+</div>
+
+{% block footer %}
+<br><br><br>
+<div class="footer">
+    <p> &copy; Все права защищены </p>
+</div>
+{% endblock footer %}
+
+</font>
+</body>
+</html>

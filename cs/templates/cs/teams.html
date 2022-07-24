@@ -1,0 +1,30 @@
+{% extends 'cs/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+{% if teams %}
+
+    {% for t in teams %}
+        <br>
+        <hr color="grey">
+        <br>
+        <a href="{{ t.get_absolute_url }}"><img src="{{ t.photo.url }}" height="200px"></a>
+        <h2>{{ t.long_name }}</h2>
+        <h2> Количество участников: {{ t.users.count }} </h2>
+        <h2> Занято призовых мест: {{ t.tours_1_place.count|add:t.tours_2_place.count|add:t.tours_3_place.count }} </h2>
+        <a href="{{ t.get_absolute_url }}"> Подробнее </a>
+        <br>
+    {% endfor %}
+
+{% else %}
+
+    <br>
+    <hr color="grey">
+    <br>
+    <h2>Список команд пуст</h2>
+    <br>
+
+{% endif %}
+
+{% endblock content%}

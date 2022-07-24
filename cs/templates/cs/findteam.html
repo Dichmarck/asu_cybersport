@@ -1,0 +1,13 @@
+{% extends 'cs/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+{% for t in teams %}
+        <br><br>
+        <hr>
+        <br>
+        <h2>{{ t.title }}</h2>
+        <a href="{{ t.get_absolute_url }}"> Подробнее </a>
+    {% endfor %}
+{% endblock content%}
+

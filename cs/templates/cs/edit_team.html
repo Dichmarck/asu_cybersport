@@ -1,0 +1,26 @@
+{% extends 'cs/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for p in form %}
+        {{ p.errors }}
+        {{ p.label }} {{ p }}<br>
+    {% endfor %}
+
+    <p> Участники команды:
+    {% for member in members %}
+        <ul>
+            <li>{{ member }}</li>
+        </ul>
+    {% empty %}
+         <li> Нет участников <br>
+    {% endfor %}
+    <br><br> <input type="submit" value="Применить">
+</form>
+
+
+{% endblock content%}

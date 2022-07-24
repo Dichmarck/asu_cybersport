@@ -1,0 +1,45 @@
+{% extends 'cs/base.html' %}
+
+
+
+{% block title %}
+<title>{{ user_info.username }}</title>
+{% endblock title %}
+
+{% block content %}
+    <h1>Профиль пользователя {{ user_info.username }}</h1>
+    <h2> Имя: {{ user_info.first_name|default:"Не указано" }}</h2>
+    <h2> Фамилия: {{ user_info.last_name|default:"Не указана" }}</h2>
+    {% if user_info.patronymic %} <h2> Отчество: {{user_info.patronymic}} </h2> {% endif %}
+    {% if user_info.photo %} <img src="{{ user_info.photo.url }}" width="200px" height="200px"> {% endif %}
+    <h2> Пол: {% if user_info.sex %} {% if user_info.sex == "М" %} мужской {% else %} женский {% endif %} {% else %} не указан {% endif %}</h2>
+    {% if user_info.bio %} <h2> {{ user_info.bio }} </h2> {% endif %}
+
+    {% if user_info.teams.count > 0 %}
+        {% if user.teams.count == 1 %}
+            <h2>Состоит в команде: <a href="{{ user_info.teams.first.get_absolute_url }}">{{ user_info.teams.first }}</a>
+            {% if user_info.teams.first.creator == user_info %} ★ {% endif %}</h2>
+        {% else %}
+            <h2>Состоит в командах:
+                <ul>
+                {% for team in user_info.teams.all %}
+                <li><a href="{{ team.get_absolute_url }}">{{ team }}</a>
+                    {% if team.creator == user_info %} ★ {% endif %}</li>
+                {% endfor %}
+                </ul>
+            </h2>
+        {% endif %}
+    {% endif %}
+
+
+    <h3>Персональная ссылка: {{ user_info.slug }}</h3>
+    <h4>Зарегестрирован: {{ user_info.date_joined }}</h4>
+
+    {% if user_info == user %} <h2><a href="#"> Редактировать </a></h2> {% endif %}
+
+
+{% endblock content%}
+
+
+
+

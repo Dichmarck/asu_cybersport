@@ -1,0 +1,16 @@
+{% extends 'cs/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+    {% for tour in tours %}
+        <br>
+        <hr color="grey">
+        <br>
+        <a href="{{ tour.get_absolute_url }}"><img src="{{ tour.photo.url }}" height="200px"></a>
+        <h2>{{ tour.title }}</h2>
+        <a href="{{ tour.get_absolute_url }}"> Подробнее </a>
+        <br>
+    {% endfor %}
+{% endblock content %}
+

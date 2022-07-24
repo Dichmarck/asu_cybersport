@@ -1,0 +1,32 @@
+{% extends 'cs/base.html' %}
+
+{% block title %}
+<title>Команда {{ team.short_name }}</title>
+{% endblock title %}
+
+{% block content %}
+<h1>Профиль команды {{ team.short_name }} | {{ team.long_name }}</h1><br>
+<img src="{{ team.photo.url }}" width="200px" height="200px"><br><br>
+
+<h2>
+<ul>Участники:
+{% for member in team.users.all %}
+    <li><a href="{{ member.get_absolute_url }}"> {{ member }} </a></li>
+{% endfor %}
+</ul></h2>
+<h2>Капитан: <a href="{{ team.creator.get_absolute_url }}"> {{ team.creator }} </a></h2><br>
+
+<h2>Участий в турнирах: {{ team.tournaments.count }}</h2>
+{% if team.tours_1_place.count %} <h2>Занято 1-х мест: {{ team.tours_1_place.count }}</h2>{% endif %}
+{% if team.tours_2_place.count %} <h2>Занято 2-х мест: {{ team.tours_2_place.count }}</h2>{% endif %}
+{% if team.tours_3_place.count %} <h2>Занято 3-х мест: {{ team.tours_3_place.count }}</h2>{% endif %}
+<br>
+{% if team.bio %} <h2>{{ team.bio }}</h2><br> {% endif %}
+<h3>URL: {{ team.slug }}</h3>
+<h3>Создана: {{ team.time_create }}</h3>
+
+{% if team.creator == user %}
+    <h2><a href="{% url 'edit_team' slug=team.slug %}"> Редактировать </a></h2>
+{% endif %}
+
+{% endblock content%}
